@@ -8,7 +8,7 @@ public class Category
     public string Slug { get; set; } = null!;
     public string? Description { get; set; }
     public bool IsDeleted { get; set; } = false;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     [Timestamp]
     public byte[] RowVersion { get; set; } = null!;
