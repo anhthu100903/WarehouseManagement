@@ -22,10 +22,28 @@ Dự án tập trung vào các nghiệp vụ cốt lõi của kho: quản lý s�
 ---
 
 ## 📦 NuGet Packages
-Các thư viện chính đang được sử dụng:
-- `Microsoft.EntityFrameworkCore.SqlServer` (8.0.12)
-- `Microsoft.EntityFrameworkCore.Tools` (8.0.12)
-- `Microsoft.EntityFrameworkCore.Design` (8.0.12)
+Dự án sử dụng các thư viện thuộc hệ sinh thái .NET 8 để đảm bảo tính ổn định và bảo mật:
+
+🗄️ Database & ORM
+- Microsoft.EntityFrameworkCore.SqlServer (8.0.12)
+- Microsoft.EntityFrameworkCore.Tools (8.0.12)
+- Microsoft.EntityFrameworkCore.Design (8.0.12)
+
+🔐 Security & Authentication
+- BCrypt.Net-Next
+- Microsoft.AspNetCore.Authentication.JwtBearer
+
+## 🚀 Lệnh cài đặt nhanh
+```bash
+# Cài đặt EF Core
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 8.0.12
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 8.0.12
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 8.0.12
+
+# Cài đặt Security & JWT
+Install-Package BCrypt.Net-Next
+Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 8.0.0
+```
 
 ---
 ## 🚀 Hướng dẫn cài đặt & chạy dự án
