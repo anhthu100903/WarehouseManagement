@@ -22,4 +22,7 @@
 		<ProjectReference Include="..\WarehouseManagement.Application\WarehouseManagement.Application.csproj" />
 		<ProjectReference Include="..\WarehouseManagement.Infrastructure\WarehouseManagement.Infrastructure.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Controllers\" />
+	</ItemGroup>
 </Project>
