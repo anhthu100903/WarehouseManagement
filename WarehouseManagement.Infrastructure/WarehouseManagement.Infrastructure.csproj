@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
@@ -20,10 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Configurations\" />
-	  <Folder Include="Data\" />
 	  <Folder Include="Repositories\" />
-	  <Folder Include="Services\" />
 	</ItemGroup>
 
 </Project>
