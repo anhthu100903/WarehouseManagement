@@ -34,6 +34,8 @@ WarehouseManagement
 
 This structure ensures clear separation between business logic and infrastructure concerns.
 
+---
+
 ### ✨ Key Features
 - JWT Authentication
 - Role-based Authorization (Owner, Manager, Staff)
@@ -44,6 +46,8 @@ This structure ensures clear separation between business logic and infrastructur
 - Asynchronous programming (async/await)
 - RESTful API design
 
+---
+
 ## 🛠 Tech Stack
 - **Framework:** .NET 8.0 (ASP.NET Core Web API)
 - **Database:** SQL Server
@@ -52,6 +56,8 @@ This structure ensures clear separation between business logic and infrastructur
 -**Password Hashing:** BCrypt
 -**Version Control:** Git & GitHub
 - **IDE:** Visual Studio 2022
+  
+---
 
 ## 📦 NuGet Packages
 Dự án sử dụng các thư viện thuộc hệ sinh thái .NET 8 để đảm bảo tính ổn định và bảo mật:
@@ -61,10 +67,14 @@ Dự án sử dụng các thư viện thuộc hệ sinh thái .NET 8 để đả
 - Microsoft.EntityFrameworkCore.Tools (8.0.12)
 - Microsoft.EntityFrameworkCore.Design (8.0.12)
 
+---
+
 ## 🔐 Security & Authentication
 - BCrypt.Net-Next
 - Microsoft.AspNetCore.Authentication.JwtBearer
-  
+
+---
+
 ### 🚀 Getting Started
 ### 1️⃣Clone repository
 
@@ -96,9 +106,13 @@ dotnet run
 Access Swagger UI:
 [https://localhost:<port>/swagger](https://localhost:<port>/swagger)
 
+---
+
 ### 🧠 Concurrency Handling
 The project uses RowVersion to prevent data conflicts when multiple users update the same record simultaneously.
 This ensures data consistency in concurrent environments.
+
+---
 
 ### 📈 Future Improvements
 Add Unit Testing (xUnit + Moq)
@@ -106,5 +120,7 @@ Implement Docker support
 Add logging (Serilog)
 Introduce caching for performance optimization
 
-👤 Author
+---
+
+### 👤 Author
 GitHub: anhthu100903
