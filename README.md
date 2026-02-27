@@ -1,25 +1,57 @@
 # Warehouse Management API
 
-Warehouse Management API là hệ thống quản lý kho hàng được xây dựng bằng **ASP.NET Core Web API (.NET 8)**.  
-Dự án tập trung vào các nghiệp vụ cốt lõi của kho: quản lý sản phẩm, tồn kho và dữ liệu liên quan, sử dụng **Entity Framework Core** để làm việc với cơ sở dữ liệu SQL Server.
+Warehouse Management API is a backend system built with ASP.NET Core Web API (.NET 8) for managing warehouse operations in a scalable and structured manner.
+
+The project is designed with a clean layered architecture, focusing on maintainability, separation of concerns, and enterprise-ready backend practices.
 
 ---
 
-## 🎯 Mục tiêu dự án
-- Xây dựng nền tảng API quản lý kho theo mô hình chuẩn
-- Áp dụng Entity Framework Core với Code First + Migration
-- Dễ mở rộng cho các nghiệp vụ thực tế trong doanh nghiệp
+## 🎯Project Purpose
+- Build a structured warehouse management backend system
+
+- Apply Clean Architecture principles
+
+- Implement secure authentication and role-based authorization
+
+- Ensure scalability and maintainability for real-world scenarios
 
 ---
 
-## 🛠 Công nghệ sử dụng
+## 🏗 Architecture
+The project follows a layered Clean Architecture structure:
+```bash
+WarehouseManagement
+ ├── Domain          # Entities and core business rules
+ ├── Application     # Interfaces and business logic
+ ├── Infrastructure  # EF Core, DbContext, repository implementations
+ └── Api             # Controllers, Middleware, Authentication
+```
+## Layer Responsibilities
+- Domain: Core entities and domain rules
+- Application: Business services and abstractions
+- Infrastructure: Database access using EF Core
+- API: HTTP endpoints, authentication, middleware pipeline
+
+This structure ensures clear separation between business logic and infrastructure concerns.
+
+### ✨ Key Features
+- JWT Authentication
+- Role-based Authorization (Owner, Manager, Staff)
+- Store-level access control middleware
+- Soft Delete using Global Query Filters
+- Concurrency handling with RowVersion
+- Dependency Injection
+- Asynchronous programming (async/await)
+- RESTful API design
+
+## 🛠 Tech Stack
 - **Framework:** .NET 8.0 (ASP.NET Core Web API)
 - **Database:** SQL Server
 - **ORM:** Entity Framework Core 8.0.12
+- **Authentication:** JWT Bearer
+-**Password Hashing:** BCrypt
+-**Version Control:** Git & GitHub
 - **IDE:** Visual Studio 2022
-- **Quản lý mã nguồn:** Git & GitHub
-
----
 
 ## 📦 NuGet Packages
 Dự án sử dụng các thư viện thuộc hệ sinh thái .NET 8 để đảm bảo tính ổn định và bảo mật:
@@ -29,35 +61,19 @@ Dự án sử dụng các thư viện thuộc hệ sinh thái .NET 8 để đả
 - Microsoft.EntityFrameworkCore.Tools (8.0.12)
 - Microsoft.EntityFrameworkCore.Design (8.0.12)
 
-🔐 Security & Authentication
+## 🔐 Security & Authentication
 - BCrypt.Net-Next
 - Microsoft.AspNetCore.Authentication.JwtBearer
+  
+### 🚀 Getting Started
+### 1️⃣Clone repository
 
-## 🚀 Lệnh cài đặt nhanh
 ```bash
-# Cài đặt EF Core
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 8.0.12
-Install-Package Microsoft.EntityFrameworkCore.Tools -Version 8.0.12
-Install-Package Microsoft.EntityFrameworkCore.Design -Version 8.0.12
-
-# Cài đặt Security & JWT
-Install-Package BCrypt.Net-Next
-Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 8.0.0
+git clone https://github.com/anhthu100903/WarehouseManagement.git
 ```
 
----
-## 🚀 Hướng dẫn cài đặt & chạy dự án
-
-### 1️⃣ Clone source code
-
-git clone:
-```bash
-https://github.com/anhthu100903/WarehouseManagement.git
-```
-
-### 2. Cấu hình Cơ sở dữ liệu
-
-Mở file `appsettings.json` trong project **WarehouseManagement.Api** và cập nhật chuỗi kết nối SQL Server phù hợp với máy của bạn:
+### 2. Configure Database
+Update the connection string in:
 
 ```json
 {
@@ -66,20 +82,29 @@ Mở file `appsettings.json` trong project **WarehouseManagement.Api** và cập
   }
 }
 ```
-### 3️⃣ Khởi tạo cơ sở dữ liệu (Migrations)
-Mở Package Manager Console trong Visual Studio và chạy:
-
+### 3️⃣ Apply Migrations
+```bash
 Add-Migration InitialCreate
 Update-Database
-### 4️⃣ Chạy ứng dụng
-Nhấn F5 hoặc Start trong Visual Studio
+```
 
-Truy cập Swagger UI để kiểm tra API:
+### 4️⃣ Run the application
+```bash
+dotnet run
+```
+
+Access Swagger UI:
 [https://localhost:<port>/swagger](https://localhost:<port>/swagger)
 
-📝 Giấy phép
-Dự án sử dụng MIT License.
-Bạn có quyền tự do sử dụng, chỉnh sửa và phân phối lại mã nguồn.
+### 🧠 Concurrency Handling
+The project uses RowVersion to prevent data conflicts when multiple users update the same record simultaneously.
+This ensures data consistency in concurrent environments.
 
-👤 Tác giả
+### 📈 Future Improvements
+Add Unit Testing (xUnit + Moq)
+Implement Docker support
+Add logging (Serilog)
+Introduce caching for performance optimization
+
+👤 Author
 GitHub: anhthu100903
