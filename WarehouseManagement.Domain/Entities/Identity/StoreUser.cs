@@ -1,4 +1,6 @@
-﻿namespace WarehouseManagement.Domain.Entities.Identity
+﻿using WarehouseManagement.Domain.Enums;
+
+namespace WarehouseManagement.Domain.Entities.Identity
 {
     public class StoreUser
     {
@@ -8,7 +10,7 @@
         public User User { get; set; } = default!;
         public Guid RoleId { get; set; }
         public Role Role { get; set; } = default!;
-        public string Status { get; set; } = "ACTIVE";
+        public StoreUserStatus Status { get; set; } = StoreUserStatus.Pending;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
