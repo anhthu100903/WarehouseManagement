@@ -12,6 +12,10 @@ namespace WarehouseManagement.Infrastructure.Persistence.Configurations.Identity
 
             builder.HasKey(su => new { su.StoreId, su.UserId });
 
+            builder.Property(x => x.Status)
+                .HasConversion<int>()
+                .IsRequired();
+
             builder.HasOne(su => su.Store)
                 .WithMany(su => su.StoreUsers)
                 .HasForeignKey(su => su.StoreId);

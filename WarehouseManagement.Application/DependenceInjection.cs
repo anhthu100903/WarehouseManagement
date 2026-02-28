@@ -10,6 +10,7 @@ namespace WarehouseManagement.Application
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IStoreAccessService, StoreAccessService>();
 
             return services;
         }

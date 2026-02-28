@@ -3,6 +3,7 @@ using WarehouseManagement.Application.DTOs.Store;
 using WarehouseManagement.Application.Interfaces;
 using WarehouseManagement.Application.Services.IServices;
 using WarehouseManagement.Domain.Entities.Identity;
+using WarehouseManagement.Domain.Enums;
 
 namespace WarehouseManagement.Application.Services
 {
@@ -15,7 +16,9 @@ namespace WarehouseManagement.Application.Services
         }
         public async Task<Guid> CreateStoreAsync(Guid userId, CreateStoreRequest request)
         {
-            var user = _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            await using var transaction = await _context.BeginTransactionAsync();
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if(user == null)
                 throw new Exception("Người dùng chưa đăng ký");
 
@@ -37,12 +40,13 @@ namespace WarehouseManagement.Application.Services
                 StoreId = store.Id,
                 UserId = userId,
                 RoleId = ownerRole.Id,
-                Status = "ACTIVE",
+                Status = StoreUserStatus.Active,
                 CreatedAt = DateTime.UtcNow
             };
 
             _context.StoreUsers.Add(storeUser);
             await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
             return store.Id;
         }
     }

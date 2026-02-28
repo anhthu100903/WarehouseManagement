@@ -1,22 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+using WarehouseManagement.Api;
+using WarehouseManagement.Api.Middlewares;
+using WarehouseManagement.Application;
+using WarehouseManagement.Infrastructure;
 using WarehouseManagement.Infrastructure.Persistence;
 using WarehouseManagement.Infrastructure.Seed;
-using WarehouseManagement.Application;
-using WarehouseManagement.Infrastructure; // Cần thiết để gọi AddInfrastructure
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Đăng ký các dịch vụ từ các tầng (Layer)
 builder.Services.AddApplication();
-// Thay vì đăng ký DbContext thủ công, ta dùng hàm mở rộng đã viết ở Infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddApi();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // 2. Cấu hình xác thực JWT (Bắt buộc phải có để API hiểu được Token)
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -39,6 +40,36 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
     };
+});
+
+builder.Services.AddSwaggerGen(options =>
+{
+    // 1. Định nghĩa kiểu bảo mật là Bearer Token
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Vui lòng nhập Token theo định dạng: Bearer {your_token}",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    // 2. Áp dụng bảo mật này cho tất cả các API
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
 });
 
 var app = builder.Build();
@@ -72,6 +103,8 @@ app.UseHttpsRedirection();
 // 4. THỨ TỰ QUAN TRỌNG: Authentication phải đứng TRƯỚC Authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<StoreContextMiddleware>();
 
 app.MapControllers();
 

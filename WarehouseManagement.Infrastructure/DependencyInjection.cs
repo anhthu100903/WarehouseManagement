@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarehouseManagement.Application.Interfaces;
+using WarehouseManagement.Application.Services.IServices;
 using WarehouseManagement.Infrastructure.Persistence;
+using WarehouseManagement.Infrastructure.Services;
 
 namespace WarehouseManagement.Infrastructure
 {
@@ -19,6 +21,9 @@ namespace WarehouseManagement.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
+
+            services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
+            services.AddScoped<ITokenService, JwtTokenService>();
             return services;
         }
     }
